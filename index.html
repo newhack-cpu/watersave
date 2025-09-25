@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>家庭用水模拟器 - 河北省公益广告大赛 | 珍惜水资源，节水有我</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- 性能指示器 -->
+    <div class="loading-indicator" id="loading-indicator"></div>
+    <div class="saved-indicator" id="saved-indicator">数据已保存 ✓</div>
+    
+    <div class="container">
+        <div class="app-header">
+            <div class="hebei-pattern"></div>
+            <div class="great-wall-pattern"></div>
+            <div class="party-emblem">党</div>
+            <div class="performance-badge">性能优化版</div>
+            
+            <div class="logo">
+                <i class="fas fa-tint"></i>
+            </div>
+            <h1>家庭用水模拟器</h1>
+            <p class="subtitle">河北省公益广告大赛 · 节水有我</p>
+            <div class="theme-badge">奋进河北我创益</div>
+            
+            <div class="app-nav">
+                <div class="nav-item active" data-page="home">
+                    <i class="fas fa-home"></i> 首页
+                </div>
+                <div class="nav-item" data-page="input">
+                    <i class="fas fa-calculator"></i> 计算
+                </div>
+                <div class="nav-item" data-page="result">
+                    <i class="fas fa-chart-bar"></i> 报告
+                </div>
+                <div class="nav-item" data-page="cert">
+                    <i class="fas fa-award"></i> 证书
+                </div>
+            </div>
+        </div>
+        
+        <div class="app-body">
+            <!-- 首页 -->
+            <div class="page active" id="home-page">
+                <div class="page-title">
+                    <i class="fas fa-info-circle"></i> 河北水资源现状
+                </div>
+                
+                <div class="card">
+                    <p>河北省是我国水资源严重短缺的省份之一，人均水资源量仅为全国平均水平的1/7。随着经济快速发展和人口增长，水资源供需矛盾日益突出。</p>
+                </div>
+                
+                <div class="card">
+                    <div class="hebei-feature">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>全省多年平均水资源总量205亿立方米，人均水资源量307立方米<span class="official-badge">官方数据</span></div>
+                    </div>
+                    
+                    <div class="hebei-feature">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>11个设区市中有7个处于极度缺水状态<span class="official-badge">官方数据</span></div>
+                    </div>
+                    
+                    <div class="hebei-feature">
+                        <i class="fas fa-tint"></i>
+                        <div>居民生活用水占全省总用水量的15%，节水潜力巨大<span class="official-badge">官方数据</span></div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>节水倡议</h3>
+                    <p>根据《河北省节约用水条例》第十六条，我们倡议每个家庭：</p>
+                    <ul style="padding-left: 20px; margin: 15px 0;">
+                        <li>使用节水型器具</li>
+                        <li>一水多用，提高用水效率</li>
+                        <li>缩短淋浴时间</li>
+                        <li>及时修复漏水</li>
+                    </ul>
+                    <div class="tip-card">
+                        <i class="fas fa-book"></i> 《河北省节约用水条例》规定：公民应当增强节约用水意识，养成节约用水习惯。
+                    </div>
+                </div>
+                
+                <button class="btn" id="start-btn">
+                    <i class="fas fa-play"></i> 开始计算我的用水量
+                </button>
+                
+                <div class="references">
+                    <strong>数据来源与参考文献：</strong><br>
+                    • 《河北省节约用水条例》<br>
+                    • 《河北省居民生活用水定额》（DB13/T 5457-2021）<br>
+                    • 《河北省水资源公报》<br>
+                    • 《河北省人民政府关于实行最严格水资源管理制度的实施意见》
+                </div>
+            </div>
+            
+            <!-- 输入页 -->
+            <div class="page" id="input-page">
+                <div class="page-title">
+                    <i class="fas fa-tint"></i> 家庭用水计算
+                </div>
+                
+                <div class="card">
+                    <p>请根据您家庭的实际情况填写以下信息，我们将计算您的家庭用水量。</p>
+                    <div class="tip-card">
+                        <i class="fas fa-info-circle"></i> 数据参考《河北省居民生活用水定额标准》
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label>家庭成员数量</label>
+                    <div class="input-row">
+                        <div class="input-field">
+                            <input type="number" id="family-members" value="3" min="1" max="10">
+                            <div class="unit">人</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>淋浴用水</h3>
+                    <div class="input-group">
+                        <label>每天淋浴次数</label>
+                        <div class="input-row">
+                            <div class="input-field">
+                                <input type="number" id="shower-times" value="2" min="0" max="10">
+                                <div class="unit">次/天</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>每次淋浴时间</label>
+                        <div class="input-row">
+                            <div class="input-field">
+                                <input type="number" id="shower-minutes" value="10" min="1" max="60">
+                                <div class="unit">分钟</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <i class="fas fa-lightbulb"></i> 提示：缩短淋浴时间1分钟，每次可节约9升水<span class="official-badge">DB13/T 5457-2021</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>洗漱用水</h3>
+                    <div class="input-group">
+                        <label>每天使用水龙头次数</label>
+                        <div class="input-row">
+                            <div class="input-field">
+                                <input type="number" id="faucet-times" value="8" min="0" max="50">
+                                <div class="unit">次/天</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>每次使用时间</label>
+                        <div class="input-row">
+                            <div class="input-field">
+                                <input type="number" id="faucet-minutes" value="2" min="0" max="10">
+                                <div class="unit">分钟</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>其他用水</h3>
+                    <div class="input-group">
+                        <label>每天马桶冲水次数</label>
+                        <div class="input-row">
+                            <div class="input-field">
+                                <input type="number" id="toilet-flushes" value="12" min="0" max="50">
+                                <div class="unit">次/天</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>每周洗衣次数</label>
+                        <div class="input-row">
+                            <div class="input-field">
+                                <input type="number" id="washing-times" value="3" min="0" max="20">
+                                <div class="unit">次/周</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn" id="calculate-btn">
+                    <i class="fas fa-calculator"></i> 计算我的用水量
+                </button>
+            </div>
+            
+            <!-- 结果页 -->
+            <div class="page" id="result-page">
+                <div class="page-title">
+                    <i class="fas fa-chart-bar"></i> 用水分析报告
+                </div>
+                
+                <div class="result-card">
+                    <div class="hebei-watermark">冀</div>
+                    <div class="data-watermark">数据依据河北省地方标准</div>
+                    <div class="result-label">您的家庭日用水量</div>
+                    <div class="result-value" id="total-water-usage">0 <span style="font-size: 1.2rem;">升</span></div>
+                    
+                    <div class="comparison">
+                        <div class="comp-item">
+                            <div class="comp-value" id="avg-water-usage">350升</div>
+                            <div class="comp-label">河北平均</div>
+                        </div>
+                        <div class="comp-item">
+                            <div class="comp-value" id="water-difference">+0%</div>
+                            <div class="comp-label">超出</div>
+                        </div>
+                        <div class="comp-item">
+                            <div class="comp-value" id="ranking">前50%</div>
+                            <div class="comp-label">节水排名</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>用水分布</h3>
+                    <div class="chart-container">
+                        <canvas id="water-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>详细用水量</h3>
+                    <div class="water-usage-item">
+                        <span class="water-usage-label">淋浴用水</span>
+                        <span class="water-usage-value" id="shower-water">0 升</span>
+                    </div>
+                    <div class="water-usage-item">
+                        <span class="water-usage-label">洗漱用水</span>
+                        <span class="water-usage-value" id="faucet-water">0 升</span>
+                    </div>
+                    <div class="water-usage-item">
+                        <span class="water-usage-label">马桶用水</span>
+                        <span class="water-usage-value" id="toilet-water">0 升</span>
+                    </div>
+                    <div class="water-usage-item">
+                        <span class="water-usage-label">洗衣用水</span>
+                        <span class="water-usage-value" id="washing-water">0 升</span>
+                    </div>
+                </div>
+                
+                <div class="saving-card">
+                    <div class="saving-title">您的节水潜力</div>
+                    <div class="saving-value" id="saving-potential">0 <span style="font-size: 1.2rem;">升/天</span></div>
+                    <p>相当于每天节约 <span class="highlight" id="bottle-equivalent">0瓶</span> 矿泉水</p>
+                    
+                    <div class="comparison" style="margin-top: 20px;">
+                        <div class="comp-item">
+                            <div class="comp-value" id="weekly-saving">0L</div>
+                            <div class="comp-label">周节水</div>
+                        </div>
+                        <div class="comp-item">
+                            <div class="comp-value" id="yearly-saving">0L</div>
+                            <div class="comp-label">年节水</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>个性化节水建议</h3>
+                    <p>根据您的用水情况，我们为您量身定制以下建议：</p>
+                    <div id="personalized-tips">
+                        <!-- 个性化建议将在这里动态生成 -->
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-book"></i> 以上建议基于《河北省节约用水条例》和《河北省居民生活用水定额》
+                    </div>
+                </div>
+                
+                <button class="btn" id="cert-btn">
+                    <i class="fas fa-award"></i> 生成节水承诺证书
+                </button>
+            </div>
+            
+            <!-- 证书页 -->
+            <div class="page" id="cert-page">
+                <div class="page-title">
+                    <i class="fas fa-award"></i> 节水承诺证书
+                </div>
+                
+                <div class="card">
+                    <p>感谢您参与节水行动！以下是根据您的用水情况生成的节水承诺证书。</p>
+                    <div class="tip-card">
+                        <i class="fas fa-star"></i> 河北省公益广告大赛推荐作品 · 奋进河北我创益
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="user-name-input">请输入您的姓名生成专属证书</label>
+                        <input type="text" id="user-name-input" class="name-input" placeholder="例如：张节水" value="张节水">
+                    </div>
+                    
+                    <div class="dialect-switch">
+                        <div class="dialect-option active" id="dialect-standard">普通话</div>
+                        <div class="dialect-option" id="dialect-hebei">河北方言</div>
+                    </div>
+                </div>
+                
+                <div class="certificate-container">
+                    <div class="certificate-preview">
+                        <div class="cert-overlay">
+                            <div class="cert-content" id="cert-content">
+                                <div class="cert-title">节水承诺证书</div>
+                                <div class="cert-text">兹证明 <span class="highlight" id="user-name">张节水</span> 家庭</div>
+                                <div class="cert-text">积极参与河北省节水行动</div>
+                                <div class="cert-water" id="cert-saving">每天节水 0升</div>
+                                <div class="cert-text">承诺践行节约用水</div>
+                                <div class="cert-text">保护河北水资源</div>
+                                
+                                <div class="cert-logo">
+                                    <i class="fas fa-tint"></i>
+                                </div>
+                                
+                                <div class="cert-text">河北省公益广告大赛推荐</div>
+                                <div class="cert-text" id="cert-date">2025年</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <p>您的节水行动将为河北水资源保护做出重要贡献！</p>
+                    
+                    <div class="hebei-feature">
+                        <i class="fas fa-hand-holding-water"></i>
+                        <div>如果全省10%的家庭像您一样节水，每年可节约<span id="province-saving">1.2</span>亿立方米水资源</div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn" id="download-btn">
+                        <i class="fas fa-download"></i> 保存证书
+                    </button>
+                    <button class="btn btn-secondary" id="share-btn">
+                        <i class="fas fa-share-alt"></i> 分享成果
+                    </button>
+                </div>
+                
+                <button class="btn" style="margin-top: 15px;" id="restart-btn">
+                    <i class="fas fa-redo"></i> 重新计算
+                </button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><span class="footer-logo">河北省公益广告大赛</span> · 节水有我特别征集</p>
+            <p>主办单位：河北省水利厅 · 河北省精神文明建设办公室 · 河北省市场监督管理局</p>
+            <p>大赛主题：奋进河北我创益 · 珍惜水资源，节水有我</p>
+        </div>
+    </div>
+    
+<script src="assets/js/script.js"></script>
+</body>
+</html>
